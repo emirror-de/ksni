@@ -15,6 +15,15 @@ impl ksni::Tray for MyTray {
     }
     fn menu(&self) -> Vec<ksni::MenuItem<Self>> {
         use ksni::menu::*;
+        if self.checked {
+            return vec![StandardItem {
+                label: "Exit".into(),
+                icon_name: "application-exit".into(),
+                activate: Box::new(|_| std::process::exit(0)),
+                ..Default::default()
+            }
+            .into()];
+        }
         vec![
             SubMenu {
                 label: "a".into(),
